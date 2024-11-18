@@ -6,7 +6,6 @@
 			"hidden": true,
 			"binaryDir": "${sourceDir}/build/${presetName}",
 			"cacheVariables": {
-				"BUILD_TESTS": "ON"
 			}
 		},
 		{
@@ -15,8 +14,7 @@
 			"binaryDir": "${sourceDir}/build/${presetName}",
 			"cacheVariables": {
 				"CMAKE_C_COMPILER": "cl.exe",
-				"CMAKE_CXX_COMPILER": "cl.exe",
-				"CMAKE_BUILD_TESTS": "ON"
+				"CMAKE_CXX_COMPILER": "cl.exe"
 			},
 			"condition": {
 				"type": "equals",
