@@ -35,7 +35,7 @@ int main(int argc, char *argv[], ...) {
 	// continue should not be triggered
 /*inside-comment=0*/
 	/*vvv inside-string=1; ok*/
-	"continue"/*inside-string=0*/; // should not be triggered
+	"continue\\\\\"continue"/*inside-string=0*/; // should not be triggered
 	continue/*inside-loop=0 inside-comment=0 inside-string=0 => ERROR*/; // should be triggered
 	continueaaa; // should not be triggered because it is a different token
 	return 0;

@@ -61,12 +61,16 @@ static inline size_t skip_preproc(char const *src, size_t len, size_t i) {
 
 static inline size_t skip_strings(char const *src, size_t len, size_t i) {
 	i = skip_whitespace(src, len, i);
-	if (((i + 1) < len) && (src[i] == 'L') && ((src[i + 1] == '"') || (src[i + 1] == '\'')))
-		i++;
-	if ((i < len) && ((src[i] == '"') || (src[i] == '\''))) {
+	if (i + 1 < len && src[i] == 'L' && (src[i+1] == '\'' || src[i+1] == '"'))
+		i++; // skip 'L' prefix
+	if (i < len && (src[i] == '"' || src[i] == '\'')) {
 		char x = src[i];
-		i += 2;
-		while ((i < len) && (src[i - 1] != x)) i++;
+		i++; // skip opening tick
+		for (bool bs = false; i < len; i++) {
+			bs = !bs && src[i-1] == '\\';
+			if (!bs && src[i] == x) break;
+		}
+		i++; // skip closing tick
 	}
 	return i;
 }

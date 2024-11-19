@@ -76,11 +76,15 @@ def skip_preproc(src, l, i):
 def skip_strings(src, l, i):
     i = skip_whitespace(src, l, i)
     if (i+1 < l) and (src[i] == 'L') and (src[i+1] == '"' or src[i+1] == "'"):
-        i += 1
+        i += 1 # skip 'L' prefix
     if (i < l) and (src[i] == '"' or src[i] == "'"):
-        x = src[i]
-        i += 2
-        while (i < l) and (src[i-1] != x):
+        x, bs = src[i], False
+        i += 1 # skip opening tick
+        while i < l:
+            bs = not bs and src[i-1] == '\\'
+            if (not bs and src[i] == x):
+                break
             i += 1
+        i += 1 # skip closing tick
     return i
 
