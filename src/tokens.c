@@ -94,6 +94,8 @@ static inline size_t parse_func(control_t cc, token const *tt, size_t len, size_
 		if (tt[i].t == ';') i++;
 		else if (tt[i].t == KW_for || tt[i].t == KW_do || tt[i].t == KW_while)
 			i = parse_loop(cc, tt, len, i);
+		else if (tt[i].t == '(')
+			i = parse_balanced_expr(cc, tt, len, i);
 		else
 			i = token_error(cc, tt, len, i, (kw_t[]){';', KW_for, KW_do, KW_while, 0});
 		myfprintf(cc.ftree, "func stmt end %zu\n", i);
